@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyMzt7GPlRv2sA84Ul08Iyvh",
+      "authorship_tag": "ABX9TyOwlkQ2ORswCOw26P8HlO9h",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -52,9 +52,9 @@
           "height": 206
         },
         "id": "eEqqVfNfg8Ik",
-        "outputId": "4e1fece9-3001-4a09-b477-f9f4427fe844"
+        "outputId": "7834db1a-0df8-40fb-9793-6adcdb5e16b7"
       },
-      "execution_count": null,
+      "execution_count": 4,
       "outputs": [
         {
           "output_type": "execute_result",
@@ -83,7 +83,7 @@
             ],
             "text/html": [
               "\n",
-              "  <div id=\"df-8585fc63-ddcd-44c8-9cdf-587c368a2cd4\" class=\"colab-df-container\">\n",
+              "  <div id=\"df-68676650-ed65-4839-b716-50e081ac9f8d\" class=\"colab-df-container\">\n",
               "    <div>\n",
               "<style scoped>\n",
               "    .dataframe tbody tr th:only-of-type {\n",
@@ -174,7 +174,7 @@
               "    <div class=\"colab-df-buttons\">\n",
               "\n",
               "  <div class=\"colab-df-container\">\n",
-              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-8585fc63-ddcd-44c8-9cdf-587c368a2cd4')\"\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-68676650-ed65-4839-b716-50e081ac9f8d')\"\n",
               "            title=\"Convert this dataframe to an interactive table.\"\n",
               "            style=\"display:none;\">\n",
               "\n",
@@ -226,12 +226,12 @@
               "\n",
               "    <script>\n",
               "      const buttonEl =\n",
-              "        document.querySelector('#df-8585fc63-ddcd-44c8-9cdf-587c368a2cd4 button.colab-df-convert');\n",
+              "        document.querySelector('#df-68676650-ed65-4839-b716-50e081ac9f8d button.colab-df-convert');\n",
               "      buttonEl.style.display =\n",
               "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
               "\n",
               "      async function convertToInteractive(key) {\n",
-              "        const element = document.querySelector('#df-8585fc63-ddcd-44c8-9cdf-587c368a2cd4');\n",
+              "        const element = document.querySelector('#df-68676650-ed65-4839-b716-50e081ac9f8d');\n",
               "        const dataTable =\n",
               "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
               "                                                    [key], {});\n",
@@ -261,9 +261,160 @@
             }
           },
           "metadata": {},
-          "execution_count": 3
+          "execution_count": 4
         }
       ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# detecting missing values in dataset (true = missing)\n",
+        "df.isnull().sum()\n",
+        "\n",
+        "# drop missing data\n",
+        "df_clean = df.dropna(subset=['numeric_value'])\n",
+        "\n",
+        "# seperate numeric_value into own catigories\n",
+        "df_percentages = df_clean[df_clean['measurement_type'] == 'Crude Prevalence']\n",
+        "df_counts = df_clean[df_clean['measurement_type'] == 'Number']\n",
+        "\n",
+        "print (df_percentages)\n",
+        "print(df_counts)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nB1pbdoBj7d2",
+        "outputId": "a5f2583c-8476-4444-d173-94f85e71d1eb"
+      },
+      "execution_count": 40,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       year state_code   state_name            health_topic  \\\n",
+            "1      2019         CT  Connecticut  Cardiovascular Disease   \n",
+            "2      2019         DE     Delaware  Cardiovascular Disease   \n",
+            "4      2019         DE     Delaware                Diabetes   \n",
+            "5      2019         GU         Guam  Cardiovascular Disease   \n",
+            "7      2019         IA         Iowa                Diabetes   \n",
+            "...     ...        ...          ...                     ...   \n",
+            "43970  2022         WY      Wyoming                 Tobacco   \n",
+            "43971  2022         WA   Washington                Diabetes   \n",
+            "43972  2022         WA   Washington                Diabetes   \n",
+            "43978  2022         UT         Utah                 Tobacco   \n",
+            "43981  2022         UT         Utah                 Tobacco   \n",
+            "\n",
+            "                                        indicator_metric  measurement_type  \\\n",
+            "1      High cholesterol among adults who have been sc...  Crude Prevalence   \n",
+            "2                       High blood pressure among adults  Crude Prevalence   \n",
+            "4      Gestational diabetes among women with a recent...  Crude Prevalence   \n",
+            "5                       High blood pressure among adults  Crude Prevalence   \n",
+            "7      Gestational diabetes among women with a recent...  Crude Prevalence   \n",
+            "...                                                  ...               ...   \n",
+            "43970             Current cigarette smoking among adults  Crude Prevalence   \n",
+            "43971                              Diabetes among adults  Crude Prevalence   \n",
+            "43972                              Diabetes among adults  Crude Prevalence   \n",
+            "43978             Current cigarette smoking among adults  Crude Prevalence   \n",
+            "43981             Current cigarette smoking among adults  Crude Prevalence   \n",
+            "\n",
+            "       numeric_value    demographic_group  \n",
+            "1               30.0             Hispanic  \n",
+            "2               38.8  White, non-Hispanic  \n",
+            "4               12.5  White, non-Hispanic  \n",
+            "5               27.0  Asian, non-Hispanic  \n",
+            "7               11.6  Black, non-Hispanic  \n",
+            "...              ...                  ...  \n",
+            "43970           15.5  White, non-Hispanic  \n",
+            "43971            9.7              Overall  \n",
+            "43972           13.2  Black, non-Hispanic  \n",
+            "43978            6.7              Overall  \n",
+            "43981            7.1             Hispanic  \n",
+            "\n",
+            "[7563 rows x 8 columns]\n",
+            "       year state_code  state_name            health_topic  \\\n",
+            "3      2019         DE    Delaware  Cardiovascular Disease   \n",
+            "6      2019         HI      Hawaii                Diabetes   \n",
+            "8      2019         MD    Maryland                Diabetes   \n",
+            "14     2019         NM  New Mexico                Diabetes   \n",
+            "17     2019         NY    New York  Cardiovascular Disease   \n",
+            "...     ...        ...         ...                     ...   \n",
+            "41861  2021         WI   Wisconsin  Cardiovascular Disease   \n",
+            "41872  2021         WI   Wisconsin  Cardiovascular Disease   \n",
+            "41905  2021         WI   Wisconsin  Cardiovascular Disease   \n",
+            "41913  2021         WY     Wyoming  Cardiovascular Disease   \n",
+            "41940  2021         WY     Wyoming  Cardiovascular Disease   \n",
+            "\n",
+            "                                        indicator_metric measurement_type  \\\n",
+            "3      Diseases of the heart mortality among all peop...           Number   \n",
+            "6      Diabetes mortality among all people, underlyin...           Number   \n",
+            "8      Diabetes mortality among all people, underlyin...           Number   \n",
+            "14     Diabetes mortality among all people, underlyin...           Number   \n",
+            "17     Cerebrovascular disease (stroke) mortality amo...           Number   \n",
+            "...                                                  ...              ...   \n",
+            "41861  Coronary heart disease mortality among all peo...           Number   \n",
+            "41872  Diseases of the heart mortality among all peop...           Number   \n",
+            "41905  Coronary heart disease mortality among all peo...           Number   \n",
+            "41913  Coronary heart disease mortality among all peo...           Number   \n",
+            "41940  Diseases of the heart mortality among all peop...           Number   \n",
+            "\n",
+            "       numeric_value                               demographic_group  \n",
+            "3             2053.0                                         Overall  \n",
+            "6               78.0                                        Hispanic  \n",
+            "8              140.0                                        Hispanic  \n",
+            "14             809.0                             White, non-Hispanic  \n",
+            "17             874.0                             Black, non-Hispanic  \n",
+            "...              ...                                             ...  \n",
+            "41861           61.0                             Asian, non-Hispanic  \n",
+            "41872           85.0  American Indian or Alaska Native, non-Hispanic  \n",
+            "41905         6358.0                             White, non-Hispanic  \n",
+            "41913          568.0                             White, non-Hispanic  \n",
+            "41940         1041.0                             White, non-Hispanic  \n",
+            "\n",
+            "[4400 rows x 8 columns]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print (df_percentages['numeric_value'].mean())\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qR-Dg3LW_KI2",
+        "outputId": "34763e56-02a0-421c-9026-3aba6ec68534"
+      },
+      "execution_count": 44,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "24.619846621710956\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# checking number of duplicates\n",
+        "duplicate_count = df.duplicated().sum()\n",
+        "\n",
+        "# remove duplicates\n",
+        "df.drop_duplicates(inplace=True)\n"
+      ],
+      "metadata": {
+        "id": "MueVjd_7xmKO"
+      },
+      "execution_count": 41,
+      "outputs": []
     }
   ]
 }
